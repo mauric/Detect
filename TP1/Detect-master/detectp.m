@@ -7,7 +7,7 @@ close all
 
 
 A =.5;
-N = 1000;
+N = 100;
 M = 1000;
 
 
@@ -64,9 +64,13 @@ for n = 1:length(gama)
 end
 
 figure()
+axis([-.5,1,0,1.5])
+hold on
 plot(PFA,PD)
+grid on
 xlabel('PFA');
 ylabel('PD');
+title('ROC')
 
 
 %% Test signal connu
@@ -93,6 +97,10 @@ plot(Tsig)
 title('stat signal connu, pfa=0.1')
 
 
+h = get(0,'children');
+for i=length(h):-1:1
+  saveas(h(i), ['detectionExo1_' num2str(length(h)+1-i)], 'png');
+end
 
 
 

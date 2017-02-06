@@ -1,0 +1,238 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% University/School Laboratory Report
+% LaTeX Template
+% Version 3.1 (25/3/14)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Linux and Unix Users Group at Virginia Tech Wiki 
+% (https://vtluug.org/wiki/Example_LaTeX_chem_lab_report)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units
+\usepackage{graphicx} % Required for the inclusion of images
+\usepackage{caption}
+\usepackage{natbib} % Required to change bibliography style to APA
+\usepackage{amsmath} % Required for some math elements 
+\usepackage{amssymb}
+\usepackage{blindtext}
+\usepackage{tikz}
+\usetikzlibrary{matrix}
+%\setlength\parindent{0pt} % Removes all indentation from paragraphs
+\usepackage[framed]{matlab-prettifier}
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+\usepackage{listings}
+\lstset{
+	style=Matlab-editor,
+	basicstyle         = \fontsize{8}{11}\ttfamily,
+	numberstyle       =\fontsize{8}{11}\ttfamily,
+	%backgroundcolor=\color{gray},
+	%mlshowsectionrules = true,
+	rangeprefix        = \%\ 
+}
+
+\renewcommand{\labelenumi}{\alph{enumi}.} % Make numbering in the enumerate environment by letter rather than number (e.g. section 6)
+
+%\usepackage{times} % Uncomment to use the Times New Roman font
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+% Title Page
+\title{TIC}
+\author{Mauricio Caceres}
+\date{18 décembre 2016}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\vfill
+{\bfseries\huge Detection et Estimation}
+	\vfill
+	{\bfseries\LARGE
+		TP:\\
+		Detecttion
+		\\
+		\vskip2cm
+
+		Master SISEA\\
+	
+	}
+	\vfill
+	18 décembre 2016
+	\vfill
+	{\large Mauricio Caceres } \hfill  {\large Pierre-Samuel Garreau-Hamard}
+	\vfill
+	{\large Enseignant : Di Ge }
+	\vfill
+	\includegraphics[width=9cm]{rennes} % also works with logo.pdf    
+	\vfill
+	\includegraphics[width=6cm]{enssat} % also works with logo.pdf
+	\vfill
+	\vfill
+\end{titlepage}
+
+
+%\begin{center}
+%\begin{tabular}{l r}
+%Date Performed: & January 1, 2012 \\ % Date the experiment was performed
+%Partners: & James Smith \\ % Partner names
+%& Mary Smith \\
+%Instructor: & Professor Smith % Instructor/supervisor
+%\end{tabular}
+%\end{center}
+
+
+% If you wish to include an abstract, uncomment the lines below
+% \begin{abstract}
+% Abstract text
+% \end{abstract}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+\chapter{Introduction}
+\section{Objectif}
+
+
+
+\section{Write the log likelihoood funciton $L(A,\phi)$ for a given observation vector}
+\label{estimationProblem}
+
+We have the signal 
+\begin{equation}\label{key}
+x(n) = A cos (2\pi f_0 n + \phi) + w(n)
+\end{equation}
+
+The non deterministic part of the signal is the noise. A White Gaussian noise with variance $\sigma ^2$, wich is common in many fields. So the log-likelihood function is evaluated in function of this noise with the next expression.
+\begin{equation}\label{key}
+w(n) = x(n) - A cos (2\pi f_0 n + \phi)
+\end{equation}
+The WGN distributions are iid so 
+\begin{equation}\label{key}
+P(w(n)|A,\theta ) = \prod_{n=0}^{N-1} P_w(w(n))
+\end{equation}
+
+So the log-likelihood function $L(A,\phi)$ is 
+
+\begin{equation}\label{key}
+L(A,\phi) = log P(w(n)|A,\theta )
+\end{equation}
+
+\begin{equation}\label{key}
+L(A,\phi) = log \prod_{n=0}^{N-1} P_w(w(n))
+\end{equation}
+
+\begin{equation}\label{key}
+L(A,\phi) = \sum_{n=0}^{N-1} log P_w(w(n))
+\end{equation}
+
+\begin{equation}\label{key}
+L(A,\phi) = \sum_{n=0}^{N-1} log(\frac{1}{\sigma \sqrt{2\pi}}\exp{[-1/2(\frac{x(n) - A cos (2\pi f_0 n + \phi)-\mu}{\sigma})^2]}
+\end{equation}
+
+\begin{equation}\label{key}
+L(A,\phi) = \sum_{n=0}^{N-1} B + ({[-1/2(\frac{x(n) - A cos (2\pi f_0 n + \phi)-\mu}{\sigma})^2]}a
+\end{equation}
+
+\section{Show that the maximun likelihood estimators are the solution of the following equations}
+
+\begin{equation}\label{key}
+\frac{\partial L(A,\phi)}{\partial A} = \sum_{n=0}^{N-1} (\frac{x(n) - A cos (2\pi f_0 n + \phi)-\mu}{\sigma})(\frac{cos(2\pi f_0 n +\phi}{\sigma})
+\end{equation}
+
+\begin{equation}\label{key}
+\frac{\partial L(A,\phi)}{\partial \phi} = \sum_{n=0}^{N-1} - (\frac{x(n) - A cos (2\pi f_0 n + \phi)-\mu}{\sigma})(\frac{Asin(2\pi f_0 n +\phi}{\sigma})
+\end{equation}
+
+
+\begin{equation}\label{key}
+\frac{\partial L(A,\phi)}{\partial \phi} = 0 = \sum_{n=0}^{N-1} - (\frac{Ax(n)sin(2\phi f_0 n +\phi)}{\sigma^2}-\frac{A^2cos(2\phi f_0 n +\phi)sin(2\phi f_0 n +\phi)}{\sigma^2}) = 0
+\end{equation}
+
+
+\begin{equation}\label{key}
+\frac{\partial L(A,\phi)}{\partial \phi} = 0 = \sum_{n=0}^{N-1} - (\frac{Ax(n)sin(2\phi f_0 n +\phi)}{\sigma^2}-\frac{A^2cos(2\phi f_0 n +\phi)sin(2\phi f_0 n +\phi)}{\sigma^2}) = 0
+\end{equation}
+
+\begin{equation}\label{key}
+\frac{\partial L(A,\phi)}{\partial \phi} = 0 = \frac{A}{\sigma^2} \sum_{n=0}^{N-1} - (\frac{Ax(n)sin(2\phi f_0 n +\phi)-A^2cos(2\phi f_0 n +\phi)sin(2\phi f_0 n +\phi)}{\sigma^2}) = 0
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+%----------------------------------------------------------------------------------------
+%	SECTION 2
+%----------------------------------------------------------------------------------------
+\chapter{Implémentation en MATLAB{\small \circledR}}
+
+
+
+
+\section{Estimation de l'information mutuelle}
+
+
+
+%----------------------------------------------------------------------------------------
+%	SECTION 3
+%----------------------------------------------------------------------------------------
+
+
+\section{Conclusion}
+
+
+%----------------------------------------------------------------------------------------
+%	FIN
+%----------------------------------------------------------------------------------------
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

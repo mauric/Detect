@@ -1,0 +1,6 @@
+\contentsline {chapter}{\numberline {1}Introduction}{2}
+\contentsline {section}{\numberline {1.1}Objectif}{2}
+\contentsline {section}{\numberline {1.2}Write the log likelihoood funciton $L(A,\phi )$ for a given observation vector}{2}
+\contentsline {chapter}{\numberline {2}Impl\IeC {\'e}mentation en MATLAB{\relax \fontsize {9}{11}\selectfont \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 4\p@ plus2\p@ minus2\p@ \parsep 2\p@ plus\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip \text {$\mathsurround \z@ \mathchar "472$}}}{3}
+\contentsline {section}{\numberline {2.1}Estimation de l'information mutuelle}{3}
+\contentsline {section}{\numberline {2.2}Conclusion}{3}
