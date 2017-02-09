@@ -187,7 +187,7 @@ L(A,\phi) = \sum_{n=0}^{N-1} B + ({[-1/2(\frac{x(n) - A cos (2\pi f_0 n + \phi)-
 
 Using the entity 
 
-\begin{equation}\label{key}
+\begin{equation}\label{entitycossin}
 \sum_{n=0}^{N-1}cos(2\pi f_0 n +\phi)sin(2\pi f_0 n +\phi)) \approx 0
 \end{equation}
 
@@ -197,9 +197,11 @@ Using the entity
 
 Developing the sum of angles
 
-\begin{equation}\label{key}
+%\begin{equation}\label{key}
+\begin{gather*} 
 \frac{\partial L(A,\phi)}{\partial \phi} = 0 = \sum_{n=0}^{N-1}x(n)(sin(2\pi f_0 n +\phi)cos(2\pi f_0 n +\phi) + cos(2\pi f_0 n +\phi)sin(2\pi f_0 n +\phi)) = 0
-\end{equation}
+\end{gather*}
+%\end{equation}
 
 \begin{equation}\label{key}
 \frac{\partial L(A,\phi)}{\partial \phi} = 0 = \sum_{n=0}^{N-1}x(n)(sin(2\pi f_0 n +\phi)cos(\phi) = - \sum_{n=0}^{N-1}x(n)cos(2\pi f_0 n +\phi)sin(\phi)) 
@@ -220,22 +222,22 @@ Developing the sum of angles
 Making the derivation to the other parameter
 
 
-\begin{equation}\label{key}
-\frac{\partial^2 L(A,\phi)}{\partial \phi^2} = \sum_{n=0}^{N-1} - (\frac{Asin(2\pi f_0 n +\phi)}{\sigma}) (\frac{Asin(2\pi f_0 n +\phi)}{\sigma})+\:
+\begin{gather*}\label{key}
+\frac{\partial^2 L(A,\phi)}{\partial \phi^2} = \sum_{n=0}^{N-1} - (\frac{Asin(2\pi f_0 n +\phi)}{\sigma}) (\frac{Asin(2\pi f_0 n +\phi)}{\sigma})+\\
 \sum_{n=0}^{N-1} - (\frac{x(n)-Acos(2\pi f_0 n +\phi)}{\sigma}) (\frac{Acos(2\pi f_0 n +\phi)}{\sigma})
-\end{equation}
+\end{gather*}
 
 
-\begin{equation}\label{key}
-\frac{\partial^2 L(A,\phi)}{\partial \phi^2} = \sum_{n=0}^{N-1} - (\frac{A^2sin^2(2\pi f_0 n +\phi)}{\sigma^2})+\:
+\begin{gather*}\label{key}
+\frac{\partial^2 L(A,\phi)}{\partial \phi^2} = \sum_{n=0}^{N-1} - (\frac{A^2sin^2(2\pi f_0 n +\phi)}{\sigma^2})+\\
 \sum_{n=0}^{N-1} - (\frac{x(n)Acos(2\pi f_0 n +\phi)-A^2cos^2(2\pi f_0 n +\phi)}{\sigma^2})
-\end{equation}
+\end{gather*}
 
 
-\begin{equation}\label{key}
-\frac{\partial^2 L(A,\phi)}{\partial \phi^2} = \sum_{n=0}^{N-1} - (\frac{A^2sin^2(2\pi f_0 n +\phi)}{\sigma^2})+\:
+\begin{gather*}\label{key}
+\frac{\partial^2 L(A,\phi)}{\partial \phi^2} = \sum_{n=0}^{N-1} - (\frac{A^2sin^2(2\pi f_0 n +\phi)}{\sigma^2})+\\
 \sum_{n=0}^{N-1} (\frac{w(n)}{\sigma^2})
-\end{equation}
+\end{gather*}
 
 \section{To compute the term of Fisher Matrix}
 
@@ -249,15 +251,117 @@ Making the derivation to the other parameter
 \end{equation} 
 
 
+\begin{gather*}\label{key}
+[\frac{\partial^2 L(A,\phi)}{\partial \phi^2}] = -\sum_{n=0}^{N-1} \frac{- cos(2\pi f_0 n +\phi)}{\sigma} \frac{Asin(2\pi f_0 n +\phi)}{\sigma} \\  + \sum_{n=0}^{N-1} - \frac{x(n)- Acos(2\pi f_0 n +\phi)}{\sigma} \frac{sin(2\pi f_0 n +\phi)}{\sigma}
+\end{gather*}
+
+\begin{equation}\label{key}
+-\sum_{n=0}^{N-1} E[\frac{\partial^2 L(A,\phi)}{\partial \phi^2}] = -\sum_{n=0}^{N-1} \frac{- cos(2\pi f_0 n +\phi)}{\sigma} \frac{Asin(2\pi f_0 n +\phi)}{\sigma}
+\end{equation} 
+
+Using the simplification in equation \ref{entitycossin}
+
+\begin{equation}\label{key}
+-\sum_{n=0}^{N-1} E[\frac{\partial^2 L(A,\phi)}{\partial \phi^2}] = 0
+\end{equation} 
+
+\section{Verify thath thw maximun-likelihood estimator of the amplitude is unbiase if $\phi = \hat{\Phi}_{ML}$}
+
+Condition pour $\hat{\Phi}_{ML} = \Phi$
+
+\begin{equation}\label{key}
+tan(\hat{\Phi}_{ML} )= tan(\Phi)
+\end{equation}
 
 
 
+\begin{gather*}
+\frac{\sum_{n=0}^{N-1}x(n)sin(2\pi f_0n+\phi)}{\sum_{n=0}^{N-1}x(n)cos(2\pi f_0n+\phi)} = \\
+\frac{\sum_{n=0}^{N-1}Acos(2\pi f_0n+\phi)+w(n)sin(2\pi f_0n+\phi)}{\sum_{n=0}^{N-1}Acos(2\pi f_0n+\phi)+w(n)cos(2\pi f_0n+\phi)}
+\end{gather*}
+
+
+\begin{gather*}
+\frac{\sum_{n=0}^{N-1}x(n)sin(2\pi f_0n+\phi)}{\sum_{n=0}^{N-1}x(n)cos(2\pi f_0n+\phi)} = \\
+\frac{\sum_{n=0}^{N-1}Acos(2\pi f_0n+\phi)+w(n)sin(2\pi f_0n+\phi)}{\sum_{n=0}^{N-1}Acos(2\pi f_0n+\phi)+w(n)cos(2\pi f_0n+\phi)}
+\end{gather*}
 
 
 
-%----------------------------------------------------------------------------------------
+\begin{gather*}
+\frac{AN/2 sin(\phi)\sum_{n=0}^{N-1}w(n)sin(2\pi f_0n)}{AN/2 sin(\phi)\sum_{n=0}^{N-1}w(n)cos(2\pi f_0n)} \approx tan(\Phi)
+\end{gather*}
+
+This term will be next to $tan(\Phi)$ when 
+
+\begin{equation}\label{key}
+\sum_{n=0}^{N-1}|w(n)sin(2\pi f_0n)|<<|AN/2 sin(\phi)|
+\end{equation}
+
+and when we have 
+\begin{equation}\label{key}
+\sum_{n=0}^{N-1}|w(n)cos(2\pi f_0n)|<<|AN/2 cos(\phi)|
+\end{equation}
+
+The noise have a normal distribution so the sum of noise have the next distribution
+
+\begin{equation}\label{key}
+\sum_{n=0}^{N-1}|w(n)sin(2\pi f_0n)|\sim \textit{N}(0,N\sigma^2/2)
+\end{equation}
+
+
+We take a probabilité of 3$\sigma$
+\begin{gather}\label{key}
+3\sqrt{\sigma^2 N/2} = 3\sqrt{N/2}\sigma << AN/2 sin(\phi)\\
+3 << \frac{A\sqrt{N}}{\sigma}sin(\phi)
+\end{gather*}
+
+For larges values of N $ \hat{\Phi}_ML \approx \phi $
+
+We cans observe that the parameters A, $ \sigma $ and N can modified
+the estimator properties.
+
+The ratio $ \frac{A^2}{\sigma^2} $ represent the RSB %SEARCH THIS DEFINITION
+
+\section{Give the condition under which $ \hat{\Phi}_ML \approx \phi $ different from $ E|\hat{\Phi}_ML| \approx \phi $ }
+
+Using
+
+\begin{gather*}
+sen(\alpha)cos(\alpha) = 1/2 sin(2\alpha)\\
+cos^2(\alpha) = \frac{1+cos(2\alpha)}{2}\\
+sin^2(\alpha) = \frac{1-cos(2\alpha)}{2}
+\end{gather*}
+
+In the entities of the copy, we obtain 
+
+\begin{equation}\label{key}
+\sum_{n=0}^{N-1}cos(4\pi f_0 n) \approx 0
+\end{equation}
+
+\begin{equation}\label{key}
+\sum_{n=0}^{N-1}sin(4\pi f_0 n) \approx 0
+\end{equation}
+
+And the last entity 
+
+\begin{equation}\label{key}
+\sum_{n=0}^{N-1}(e^{j4\pi f_0n}) \approx 0
+\end{equation}
+
+
+$ f_0t(0,1/2) $ ne sont pas des valeurs a prendre a cause du theoreme de sannon
+
+Donc il faut pas que fo = 1/2 et 0
+
+Il faut excluire les axes
+$ \phi = 4\pi fo  $
+
+$ \phi = 2\pi $
+
+%------------------------------------------------------------
 %	SECTION 2
-%----------------------------------------------------------------------------------------
+%------------------------------------------------------------
 \chapter{Implémentation en MATLAB{\small \circledR}}
 
 
