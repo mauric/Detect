@@ -27,22 +27,22 @@
 \usepackage{natbib} % Required to change bibliography style to APA
 \usepackage{amsmath} % Required for some math elements 
 \usepackage{amssymb}
-\usepackage{blindtext}
-\usepackage{tikz}
-\usetikzlibrary{matrix}
-%\setlength\parindent{0pt} % Removes all indentation from paragraphs
-\usepackage[framed]{matlab-prettifier}
-\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
-\definecolor{mylilas}{RGB}{170,55,241}
-\usepackage{listings}
-\lstset{
-	style=Matlab-editor,
-	basicstyle         = \fontsize{8}{11}\ttfamily,
-	numberstyle       =\fontsize{8}{11}\ttfamily,
-	%backgroundcolor=\color{gray},
-	%mlshowsectionrules = true,
-	rangeprefix        = \%\ 
-}
+%\usepackage{blindtext}
+%\usepackage{tikz}
+%\usetikzlibrary{matrix}
+%%\setlength\parindent{0pt} % Removes all indentation from paragraphs
+%\usepackage[framed]{matlab-prettifier}
+%\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+%\definecolor{mylilas}{RGB}{170,55,241}
+%\usepackage{listings}
+%\lstset{
+%	style=Matlab-editor,
+%	basicstyle         = \fontsize{8}{11}\ttfamily,
+%	numberstyle       =\fontsize{8}{11}\ttfamily,
+%	%backgroundcolor=\color{gray},
+%	%mlshowsectionrules = true,
+%	rangeprefix        = \%\ 
+%}
 
 \renewcommand{\labelenumi}{\alph{enumi}.} % Make numbering in the enumerate environment by letter rather than number (e.g. section 6)
 
@@ -67,7 +67,7 @@
 	\vfill
 	{\bfseries\LARGE
 		TP:\\
-		Detecttion
+		Detection
 		\\
 		\vskip2cm
 
@@ -82,8 +82,8 @@
 	{\large Enseignant : Di Ge }
 	\vfill
 	\includegraphics[width=9cm]{rennes} % also works with logo.pdf    
-	\vfill
-	\includegraphics[width=6cm]{enssat} % also works with logo.pdf
+%	\vfill
+%	\includegraphics[width=6cm]{enssat} % also works with logo.pdf
 	\vfill
 	\vfill
 \end{titlepage}
@@ -213,57 +213,89 @@ Developing the sum of angles
 \frac{\sum_{n=0}^{N-1}x(n)sin(2\pi f_0 n)}{\sum_{n=0}^{N-1}x(n)cos(2\pi f_0 n )} = \frac{sin(\phi )}{cos(\phi)} = tg(\phi)
 \end{equation}
 
+We verify the expresion
 
 \begin{equation}\label{key}
 \hat{\Phi}_{ML} = arctg(-\frac{\sum_{n=0}^{N-1}x(n)sin(2\pi f_0 n)}{\sum_{n=0}^{N-1}x(n)cos(2\pi f_0 n )})
 \end{equation}
 
 
-Making the derivation to the other parameter
+\section{Give the condition under which $ \hat{\Phi}_ML \approx \phi $ 
+different from $ E|\hat{\Phi}_ML| \approx \phi $ }
 
+It's clear that it's not the same when $ E|\hat{\Phi}_ML| \approx \phi $  where 
+the mean of the distribution of values of the estimator is close to the true 
+value of $ \phi $ to the next expresion $ \hat{\Phi}_ML \approx \phi $ that 
+means that the values of the estimator are always close to the true value of $ 
+\phi $ (the distribution is more strait around the true value)
 
-\begin{gather*}\label{key}
-\frac{\partial^2 L(A,\phi)}{\partial \phi^2} = \sum_{n=0}^{N-1} - (\frac{Asin(2\pi f_0 n +\phi)}{\sigma}) (\frac{Asin(2\pi f_0 n +\phi)}{\sigma})+\\
-\sum_{n=0}^{N-1} - (\frac{x(n)-Acos(2\pi f_0 n +\phi)}{\sigma}) (\frac{Acos(2\pi f_0 n +\phi)}{\sigma})
+Using
+
+\begin{gather*}
+sen(\alpha)cos(\alpha) = 1/2 sin(2\alpha)\\
+cos^2(\alpha) = \frac{1+cos(2\alpha)}{2}\\
+sin^2(\alpha) = \frac{1-cos(2\alpha)}{2}
 \end{gather*}
 
-
-\begin{gather*}\label{key}
-\frac{\partial^2 L(A,\phi)}{\partial \phi^2} = \sum_{n=0}^{N-1} - (\frac{A^2sin^2(2\pi f_0 n +\phi)}{\sigma^2})+\\
-\sum_{n=0}^{N-1} - (\frac{x(n)Acos(2\pi f_0 n +\phi)-A^2cos^2(2\pi f_0 n +\phi)}{\sigma^2})
-\end{gather*}
-
-
-\begin{gather*}\label{key}
-\frac{\partial^2 L(A,\phi)}{\partial \phi^2} = \sum_{n=0}^{N-1} - (\frac{A^2sin^2(2\pi f_0 n +\phi)}{\sigma^2})+\\
-\sum_{n=0}^{N-1} (\frac{w(n)}{\sigma^2})
-\end{gather*}
-
-\section{To compute the term of Fisher Matrix}
+In the entities of the copy, we obtain 
 
 \begin{equation}\label{key}
--\sum_{n=0}^{N-1} E[\frac{\partial^2 L(A,\phi)}{\partial \phi^2}] = \sum_{n=0}^{N-1}\frac{A^2sin^2(2\pi f_0 n +\phi)}{\sigma^2}
+\sum_{n=0}^{N-1}cos(4\pi f_0 n) \approx 0
+\end{equation}
+
+\begin{equation}\label{key}
+\sum_{n=0}^{N-1}sin(4\pi f_0 n) \approx 0
+\end{equation}
+
+And the last entity 
+
+\begin{equation}\label{key}
+\sum_{n=0}^{N-1}(e^{j4\pi f_0n}) \approx 0
 \end{equation}
 
 
-\begin{equation}\label{key}
--\sum_{n=0}^{N-1} E[\frac{\partial^2 L(A,\phi)}{\partial \phi^2}] = \frac{A^2N}{\sigma^2 2}
-\end{equation} 
+$ f_0t(0,1/2) $ ne sont pas des valeurs a prendre a cause du theoreme de sannon
+
+Donc il faut pas que fo = 1/2 et 0
+
+Il faut excluire les axes
+$ \phi = 4\pi fo  $
+
+$ \phi = 2\pi $
 
 
-\begin{gather*}\label{key}
-[\frac{\partial^2 L(A,\phi)}{\partial \phi^2}] = -\sum_{n=0}^{N-1} \frac{- cos(2\pi f_0 n +\phi)}{\sigma} \frac{Asin(2\pi f_0 n +\phi)}{\sigma} \\  + \sum_{n=0}^{N-1} - \frac{x(n)- Acos(2\pi f_0 n +\phi)}{\sigma} \frac{sin(2\pi f_0 n +\phi)}{\sigma}
-\end{gather*}
 
-\begin{equation}\label{key}
--\sum_{n=0}^{N-1} E[\frac{\partial^2 L(A,\phi)}{\partial \phi^2}] = -\sum_{n=0}^{N-1} \frac{- cos(2\pi f_0 n +\phi)}{\sigma} \frac{Asin(2\pi f_0 n +\phi)}{\sigma}
-\end{equation} 
+\section{Verify that the maximun-likehood estimator of the amplitude is 
+	unbiased if $ \phi =  \hat{\Phi}_{ML} $}
 
-Using the simplification in equation \ref{entitycossin}
+The estimator is unbiased if $ E[\hat{A}] = A $ thus
 
-\begin{equation}\label{key}
--\sum_{n=0}^{N-1} E[\frac{\partial^2 L(A,\phi)}{\partial \phi^2}] = 0
-\end{equation} 
+\begin{equation}
+E[\frac{2}{N}\sum_{n=0}^{N-1}x(n)cos(2\pi f_0 n + \hat{\Phi}_{ML})]
+\end{equation}
+
+with $ \phi =  \hat{\Phi}_{ML} $
+
+\begin{equation}
+\frac{2}{N}E[\sum_{n=0}^{N-1}Acos^2(2\pi f_0 n + \phi)]+E[w(n)]cos(2\pi f_0 n + 
+\phi) = A
+\end{equation}
+
+And $ E[w(n)=0 $
+
+
+\begin{equation}
+\frac{2}{N}E[\sum_{n=0}^{N-1}Acos^2(2\pi f_0 n] = A
+\end{equation}
+
+\begin{equation}
+\frac{2}{N} A \frac{N}{2} = A
+\end{equation}
+
+And we verify that the estimator is unbiased
+\begin{equation}
+E[\hat{A}] = A
+\end{equation}
 
 \section{Verify thath thw maximun-likelihood estimator of the amplitude is unbiase if $\phi = \hat{\Phi}_{ML}$}
 
@@ -323,51 +355,145 @@ the estimator properties.
 
 The ratio $ \frac{A^2}{\sigma^2} $ represent the RSB %SEARCH THIS DEFINITION
 
-\section{Give the condition under which $ \hat{\Phi}_ML \approx \phi $ different from $ E|\hat{\Phi}_ML| \approx \phi $ }
 
-Using
 
-\begin{gather*}
-sen(\alpha)cos(\alpha) = 1/2 sin(2\alpha)\\
-cos^2(\alpha) = \frac{1+cos(2\alpha)}{2}\\
-sin^2(\alpha) = \frac{1-cos(2\alpha)}{2}
+\section{To compute the term of Fisher Matrix}
+Making the derivation to the other parameter $ \phi $
+
+\begin{gather*}\label{key}
+\frac{\partial^2 L(A,\phi)}{\partial \phi^2} = \sum_{n=0}^{N-1} - 
+(\frac{Asin(2\pi f_0 n +\phi)}{\sigma}) (\frac{Asin(2\pi f_0 n 
+	+\phi)}{\sigma})+\\
+\sum_{n=0}^{N-1} - (\frac{x(n)-Acos(2\pi f_0 n +\phi)}{\sigma}) 
+(\frac{Acos(2\pi f_0 n +\phi)}{\sigma})
 \end{gather*}
 
-In the entities of the copy, we obtain 
+
+\begin{gather*}\label{key}
+\frac{\partial^2 L(A,\phi)}{\partial \phi^2} = \sum_{n=0}^{N-1} - 
+(\frac{A^2sin^2(2\pi f_0 n +\phi)}{\sigma^2})+\\
+\sum_{n=0}^{N-1} - (\frac{x(n)Acos(2\pi f_0 n +\phi)-A^2cos^2(2\pi f_0 n 
+	+\phi)}{\sigma^2})
+\end{gather*}
+
+
+\begin{gather*}\label{key}
+\frac{\partial^2 L(A,\phi)}{\partial \phi^2} = \sum_{n=0}^{N-1} - 
+(\frac{A^2sin^2(2\pi f_0 n +\phi)}{\sigma^2})+\\
+\sum_{n=0}^{N-1} (\frac{w(n)}{\sigma^2})
+\end{gather*}
 
 \begin{equation}\label{key}
-\sum_{n=0}^{N-1}cos(4\pi f_0 n) \approx 0
+-\sum_{n=0}^{N-1} E[\frac{\partial^2 L(A,\phi)}{\partial \phi^2}] = 
+\sum_{n=0}^{N-1}\frac{A^2sin^2(2\pi f_0 n +\phi)}{\sigma^2}
 \end{equation}
+
+We obtain one of the terms of the fisher information matrix
 
 \begin{equation}\label{key}
-\sum_{n=0}^{N-1}sin(4\pi f_0 n) \approx 0
-\end{equation}
+-\sum_{n=0}^{N-1} E[\frac{\partial^2 L(A,\phi)}{\partial \phi^2}] = 
+\frac{A^2N}{\sigma^2 2}
+\end{equation} 
 
-And the last entity 
+The cross derivation to the other parameter
+
+\begin{gather*}\label{key}
+[\frac{\partial^2 L(A,\phi)}{\partial \phi \partial A}] = -\sum_{n=0}^{N-1} 
+\frac{- cos(2\pi f_0 n +\phi)}{\sigma} \frac{Asin(2\pi f_0 n +\phi)}{\sigma} 
+\\  + \sum_{n=0}^{N-1} - \frac{x(n)- Acos(2\pi f_0 n +\phi)}{\sigma} 
+\frac{sin(2\pi f_0 n +\phi)}{\sigma} = [\frac{\partial^2 L(A,\phi)}{ \partial 
+	A\partial \phi}] 
+\end{gather*}
 
 \begin{equation}\label{key}
-\sum_{n=0}^{N-1}(e^{j4\pi f_0n}) \approx 0
+-\sum_{n=0}^{N-1} E[\frac{\partial^2 L(A,\phi)}{\partial \phi \partial A}] = 
+-\sum_{n=0}^{N-1} \frac{- cos(2\pi f_0 n +\phi)}{\sigma} \frac{Asin(2\pi f_0 n 
+	+\phi)}{\sigma}
+\end{equation} 
+
+Using the simplification in equation \ref{entitycossin} we will obtain a 
+symmetric matrix
+
+\begin{equation}\label{key}
+-\sum_{n=0}^{N-1} E[\frac{\partial^2 L(A,\phi)}{\partial \phi \partial A}] = 0
+\end{equation} 
+
+The derivation respect the parameter A
+
+\begin{equation}
+\frac{\partial^2 L(A,\phi)}{\partial A ^2} = -\sum_{n=0}^{N-1} 
+(\frac{-cos(2\pi f_0 n + \phi)}{\sigma})(\frac{cos(2\pi f_0n + \phi)}{\sigma})
 \end{equation}
 
 
-$ f_0t(0,1/2) $ ne sont pas des valeurs a prendre a cause du theoreme de sannon
 
-Donc il faut pas que fo = 1/2 et 0
+\begin{equation}
+\frac{\partial^2 L(A,\phi)}{\partial A ^2} = \frac{-1}{\sigma}-\sum_{n=0}^{N-1} 
+cos^2(2\pi f_0 n + \phi) = \frac{-N}{2\sigma}
+\end{equation}
 
-Il faut excluire les axes
-$ \phi = 4\pi fo  $
+The calculation of the expeted value for the fisher information matrix is
 
-$ \phi = 2\pi $
+\begin{equation}
+-\sum_{n=0}^{N-1} E[\frac{\partial^2 L(A,\phi)}{\partial A^2}] = {N}{2\sigma}
+\end{equation} 
+
+
+The fisher information matrix is 
+
+
+\begin{equation}
+J(A,\phi)=\begin{pmatrix}
+\frac{A^2N}{\sigma^2 2} & 0 \\ 
+0 & \frac{N}{2\sigma^2}
+\end{pmatrix} 
+\end{equation}
+
+The Cramer-Rao lower bound in the unbiased case is 
+
+\begin{equation}
+CRLB = J(A,\phi)^{-1} = =\begin{pmatrix}
+\frac{\sigma^2 2}{A^2N} & 0 \\ 
+0 & \frac{2\sigma^2}{N}
+\end{pmatrix} 
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 %------------------------------------------------------------
 %	SECTION 2
 %------------------------------------------------------------
-\chapter{Implémentation en MATLAB{\small \circledR}}
+\chapter{Implementation in Matlab (Scilab)}
 
 
 
 
-\section{Estimation de l'information mutuelle}
+\section{Results}
 
 
 
