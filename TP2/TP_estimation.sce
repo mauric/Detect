@@ -25,9 +25,10 @@ for i = 1 : 3
     end
 end
 
-mean(A_ch_v)
-mean(phi_ch_v)
-
+figure(3)
+plot(A_ch_v,'-*');
+figure(4)
+plot(phi_ch_v,'-*');
 
 figure(1);
 subplot(2,3,1);
