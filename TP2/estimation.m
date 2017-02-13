@@ -3,74 +3,262 @@
  %    TP ESTIMATION
  %
  %-------------------------%
- 
+
  close all
  clc
  clear all
- 
+
 
 A = 1;
 phi = 1;
 fo = 0.25;
-sigma = [0.25 0.5 1];
-N = [10 50 100 500 800 10000];
+sigma = [1 0.5 0.25];
+N = [10 50 100 500 800 1000];
+k = 1;
+
+
 for i = 1 : 3
     for j = 1 : 6
         t = (0:N(j)-1)';
-        x = A*cos(2*pi*fo*t+phi)+ (grand(N(j),'mn',0,sigma(i)^2))';
-        
+
+        x = A*cos(2*pi*fo*t+phi)+ normrnd (0, sigma(i)^2, [size(t)]);
+
         A_ch= sum(x.*cos(2*pi*fo*t+phi))/sum(cos(2*pi*fo*t+phi).^2);
-        phi_ch = atan(sum(-x.*sin(2*pi*fo*t)),sum(x.*cos(2*pi*fo*t)));
-        
-        A_ch_v(j) = A_ch;
-        phi_ch_v(j) = phi_ch;
-        
+        phi_ch = atan2(sum(-x.*sin(2*pi*fo*t)),sum(x.*cos(2*pi*fo*t)));
+
+        A_ch_v(k) = A_ch;
+        phi_ch_v(k) = phi_ch;
+
         errA(i,j) = abs(A_ch - A);
         errPhi(i,j) = abs(phi_ch - phi);
+        k = k +1;
+       % f(i,j) = N(j)/(2*sigma(i)^2);
     end
+  
 end
 
 mean(A_ch_v)
 mean(phi_ch_v)
 
 
-figure(1);
+
+figure(1)
+FigHandle = figure('Position', [100, 100, 1500, 895]);
 subplot(2,3,1);
-title('estimation error of A for sigma = 0.25');
 plot(N,errA(1,:),'-*');
+title('estimation error of A for sigma = 1');
+xlabel('N')
+ylabel('A')
 subplot(2,3,4);
-title('estimation error of phi for sigma = 0.25');
 plot(N,errPhi(1,:),'-*');
+title('estimation error of phi for sigma = 1');
+xlabel('N')
+ylabel('\phi')
 subplot(2,3,2);
-title('estimation error of A for sigma = 0.5');
 plot(N,errA(2,:),'-*');
-subplot(2,3,5);
-title('estimation error of phi for sigma = 0.5');
-plot(N,errPhi(2,:),'-*');
-subplot(2,3,3);
-title('estimation error of A for sigma = 1');
-plot(N,errA(3,:),'-*');
-subplot(2,3,6);
-title('estimation error of phi for sigma = 1');
-plot(N,errPhi(3,:),'-*');
-
-
-figure(2);
-subplot(2,3,1);
-title('estimation error of A for sigma = 0.25');
-plot(N/(2*sigma(1)^2),errA(1,:),'-*');
-subplot(2,3,4);
-title('estimation error of phi for sigma = 0.25');
-plot(N/(2*sigma(1)^2),errPhi(1,:),'-*');
-subplot(2,3,2);
 title('estimation error of A for sigma = 0.5');
-plot(N/(2*sigma(2)^2),errA(2,:),'-*');
+xlabel('N')
+ylabel('A')
 subplot(2,3,5);
+plot(N,errPhi(2,:),'-*');
 title('estimation error of phi for sigma = 0.5');
-plot(N/(2*sigma(2)^2),errPhi(2,:),'-*');
+xlabel('N')
+ylabel('\phi')
 subplot(2,3,3);
-title('estimation error of A for sigma = 1');
-plot(N/(2*sigma(3)^2),errA(3,:),'-*');
+plot(N,errA(3,:),'-*');
+title('estimation error of A for sigma = 0.25');
+xlabel('N')
+ylabel('A')
 subplot(2,3,6);
+plot(N,errPhi(3,:),'-*');
+title('estimation error of phi for sigma = 0.25');
+xlabel('N')
+ylabel('\phi')
+
+figure(2)
+FigHandle = figure('Position', [100, 100, 1500, 895]);
+subplot(2,3,1);
+plot(N/(2*sigma(1)^2),errA(1,:),'-*');
+title('estimation error of A for sigma = 1');
+xlabel('N/2\sigma^2')
+ylabel('A')
+subplot(2,3,4);
+plot(N/(2*sigma(1)^2),errPhi(1,:),'-*');
 title('estimation error of phi for sigma = 1');
+xlabel('N/2\sigma^2')
+ylabel('\phi')
+subplot(2,3,2);
+plot(N/(2*sigma(2)^2),errA(2,:),'-*');
+title('estimation error of A for sigma = 0.5');
+xlabel('N/2\sigma^2')
+ylabel('A')
+subplot(2,3,5);
+plot(N/(2*sigma(2)^2),errPhi(2,:),'-*');
+title('estimation error of phi for sigma = 0.5');
+xlabel('N/2\sigma^2')
+ylabel('\phi')
+subplot(2,3,3);
+plot(N/(2*sigma(3)^2),errA(3,:),'-*');
+title('estimation error of A for sigma = 0.25');
+xlabel('N/2\sigma^2')
+ylabel('A')
+subplot(2,3,6);
 plot(N/(2*sigma(3)^2),errPhi(3,:),'-*');
+xlabel('N/2\sigma^2')
+ylabel('\phi')
+title('estimation error of phi for sigma = 0.25');
+
+figure(3);
+FigHandle = figure('Position', [100, 100, 800, 200]);
+subplot(1,2,1);
+plot(phi_ch_v,'-*');
+title('All values of all estimations for \phi');
+ylabel('\phi')
+subplot(1,2,2);
+plot(A_ch_v,'-*');
+title('All values of all estimations for A');
+ylabel('A')
+
+
+
+
+
+%% DOCUMENTATION
+
+h = get(0,'children');
+for i=length(h):-1:1
+  saveas(h(i), ['1000_' num2str(length(h)+1-i)], 'png');
+end
+
+
+
+%% Example pour N = 2000
+
+disp('example pour N = 2000')
+pause()
+
+close all
+ clc
+ clear all
+
+
+A = 1;
+phi = 1;
+fo = 0.25;
+sigma = [0.25 0.5 1];
+N = [10 50 100 500 800 2000];
+k = 1;
+
+
+for i = 1 : 3
+    for j = 1 : 6
+        t = (0:N(j)-1)';
+
+        x = A*cos(2*pi*fo*t+phi)+ normrnd (0, sigma(i)^2, [size(t)]);
+
+        A_ch= sum(x.*cos(2*pi*fo*t+phi))/sum(cos(2*pi*fo*t+phi).^2);
+        phi_ch = atan2(sum(-x.*sin(2*pi*fo*t)),sum(x.*cos(2*pi*fo*t)));
+
+        A_ch_v(k) = A_ch;
+        phi_ch_v(k) = phi_ch;
+
+        errA(i,j) = abs(A_ch - A);
+        errPhi(i,j) = abs(phi_ch - phi);
+        k = k +1;
+       % f(i,j) = N(j)/(2*sigma(i)^2);
+    end
+  
+end
+
+mean(A_ch_v)
+mean(phi_ch_v)
+
+
+
+figure(5)
+FigHandle = figure('Position', [100, 100, 1500, 895]);
+subplot(2,3,1);
+plot(N,errA(1,:),'-*');
+title('estimation error of A for sigma = 1');
+xlabel('N')
+ylabel('A')
+subplot(2,3,4);
+plot(N,errPhi(1,:),'-*');
+title('estimation error of phi for sigma = 1');
+xlabel('N')
+ylabel('\phi')
+subplot(2,3,2);
+plot(N,errA(2,:),'-*');
+title('estimation error of A for sigma = 0.5');
+xlabel('N')
+ylabel('A')
+subplot(2,3,5);
+plot(N,errPhi(2,:),'-*');
+title('estimation error of phi for sigma = 0.5');
+xlabel('N')
+ylabel('\phi')
+subplot(2,3,3);
+plot(N,errA(3,:),'-*');
+title('estimation error of A for sigma = 0.25');
+xlabel('N')
+ylabel('A')
+subplot(2,3,6);
+plot(N,errPhi(3,:),'-*');
+title('estimation error of phi for sigma = 0.25');
+xlabel('N')
+ylabel('\phi')
+
+figure(6)
+FigHandle = figure('Position', [100, 100, 1500, 895]);
+subplot(2,3,1);
+plot(N/(2*sigma(1)^2),errA(1,:),'-*');
+title('estimation error of A for sigma = 1');
+xlabel('N/2\sigma^2')
+ylabel('A')
+subplot(2,3,4);
+plot(N/(2*sigma(1)^2),errPhi(1,:),'-*');
+title('estimation error of phi for sigma = 1');
+xlabel('N/2\sigma^2')
+ylabel('\phi')
+subplot(2,3,2);
+plot(N/(2*sigma(2)^2),errA(2,:),'-*');
+title('estimation error of A for sigma = 0.5');
+xlabel('N/2\sigma^2')
+ylabel('A')
+subplot(2,3,5);
+plot(N/(2*sigma(2)^2),errPhi(2,:),'-*');
+title('estimation error of phi for sigma = 0.5');
+xlabel('N/2\sigma^2')
+ylabel('\phi')
+subplot(2,3,3);
+plot(N/(2*sigma(3)^2),errA(3,:),'-*');
+title('estimation error of A for sigma = 0.25');
+xlabel('N/2\sigma^2')
+ylabel('A')
+subplot(2,3,6);
+plot(N/(2*sigma(3)^2),errPhi(3,:),'-*');
+xlabel('N/2\sigma^2')
+ylabel('\phi')
+title('estimation error of phi for sigma = 0.25');
+
+figure(7);
+FigHandle = figure('Position', [100, 100, 800, 200]);
+subplot(1,2,1);
+plot(phi_ch_v,'-*');
+title('All values of all estimations for \phi');
+ylabel('\phi')
+subplot(1,2,2);
+plot(A_ch_v,'-*');
+title('All values of all estimations for A');
+ylabel('A')
+
+
+
+
+h = get(0,'children');
+for i=length(h):-1:1
+  saveas(h(i), ['2000_' num2str(length(h)+1-i)], 'png');
+end
+
+
+
